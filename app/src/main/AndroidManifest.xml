@@ -393,9 +393,11 @@
             android:exported="false"
             android:grantUriPermissions="true" />
 
-        <activity android:name=".view.BannerActivity" />
-        <activity android:name=".view.VideoActivity" />
-        <activity android:name=".view.NativeActivity"></activity>
+        <activity android:name=".view.BannerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.VideoActivity"/>
+        <activity android:name=".view.NativeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

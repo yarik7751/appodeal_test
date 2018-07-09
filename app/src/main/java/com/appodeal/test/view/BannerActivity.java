@@ -28,6 +28,9 @@ public class BannerActivity extends BaseActivity implements BannerCallbacks {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
+        if(Appodeal.isLoaded(Appodeal.BANNER)) {
+            buttonsEnabled(true);
+        }
     }
 
     @Override
@@ -46,7 +49,7 @@ public class BannerActivity extends BaseActivity implements BannerCallbacks {
             return;
         }
         adInit();
-        pb.setVisibility(View.VISIBLE);
+        startLoad();
     }
 
     @OnClick(R.id.btnShow)
@@ -59,16 +62,30 @@ public class BannerActivity extends BaseActivity implements BannerCallbacks {
         Appodeal.hide(this, Appodeal.BANNER);
     }
 
+    private void endLoad() {
+        pb.setVisibility(View.GONE);
+    }
+
+    private void startLoad() {
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    private void buttonsEnabled(boolean enabled) {
+        btnShow.setEnabled(enabled);
+        btnHide.setEnabled(enabled);
+    }
+
     @Override
     public void onBannerLoaded(int height, boolean isPrecache) {
-        btnShow.setEnabled(true);
-        btnHide.setEnabled(true);
-        pb.setVisibility(View.GONE);
+        endLoad();
+        buttonsEnabled(true);
         showToast(String.format("onBannerLoaded, %sdp, isPrecache: %s", height, isPrecache));
     }
 
     @Override
     public void onBannerFailedToLoad() {
+        endLoad();
+        buttonsEnabled(false);
         showToast("onBannerFailedToLoad");
     }
 

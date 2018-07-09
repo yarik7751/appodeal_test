@@ -5,11 +5,16 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.UserSettings;
+import com.appodeal.test.R;
+import com.appodeal.test.util.AndroidUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity {

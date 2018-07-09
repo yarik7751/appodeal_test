@@ -26,7 +26,7 @@ public class VideoActivity extends BaseActivity implements RewardedVideoCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         if(Appodeal.isLoaded(Appodeal.REWARDED_VIDEO)) {
-            btnShow.setEnabled(true);
+            buttonsEnabled(true);
         }
     }
 
@@ -45,7 +45,7 @@ public class VideoActivity extends BaseActivity implements RewardedVideoCallback
             return;
         }
         adInit();
-        pb.setVisibility(View.VISIBLE);
+        startLoad();
     }
 
     @OnClick(R.id.btnShow)
@@ -53,15 +53,29 @@ public class VideoActivity extends BaseActivity implements RewardedVideoCallback
         Appodeal.show(this, Appodeal.REWARDED_VIDEO);
     }
 
+    private void endLoad() {
+        pb.setVisibility(View.GONE);
+    }
+
+    private void startLoad() {
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    private void buttonsEnabled(boolean enabled) {
+        btnShow.setEnabled(enabled);
+    }
+
     @Override
     public void onRewardedVideoLoaded() {
-        btnShow.setEnabled(true);
-        pb.setVisibility(View.GONE);
+        endLoad();
+        buttonsEnabled(true);
         showToast("onRewardedVideoLoaded");
     }
 
     @Override
     public void onRewardedVideoFailedToLoad() {
+        endLoad();
+        buttonsEnabled(false);
         showToast("onRewardedVideoFailedToLoad");
     }
 
